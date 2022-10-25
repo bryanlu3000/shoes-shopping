@@ -1,0 +1,33 @@
+.container {
+  min-width: 20rem;
+  width: min(85%, 90rem);
+  margin: 0 auto;
+}
+
+.flex {
+  display: flex;
+  gap: var(--gap, 2rem);
+}
+
+.spacing > * + * {
+  margin-top: var(--spacer, 2em);
+}
+
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--clr-text, #fff);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1.125rem;
+  padding: 0.5em 1.25em;
+  background: var(--clr-accent, blue);
+  border-radius: 0.25em;
+  transition: transform 250ms ease-in-out, opacity 250ms linear;
+
+  &:hover,
+  &:focus {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+}

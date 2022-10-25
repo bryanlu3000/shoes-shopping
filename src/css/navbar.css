@@ -1,0 +1,155 @@
+.navbar {
+  box-shadow: 0 0 2px var(--clr-nav, #fff);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  line-height: 1.3;
+  z-index: 100;
+}
+
+.nav-container {
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.brand {
+  font-size: 2rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.nav-ul {
+  list-style: none;
+  margin-left: 3rem;
+}
+.nav-ul a {
+  text-decoration: none;
+  font-weight: 400;
+  position: relative;
+}
+
+.nav-menu-btn,
+.nav-close-btn {
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: none;
+}
+
+.nav-icons {
+  margin-left: auto;
+}
+
+.nav-btn {
+  font-size: 1.3rem;
+  cursor: pointer;
+  position: relative;
+}
+.nav-btn .tooltip-text {
+  cursor: default;
+  position: absolute;
+  color: #000;
+  font-size: 0.7rem;
+  width: 5rem;
+  bottom: -70%;
+  left: 50%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
+}
+.nav-btn i:hover + .tooltip-text {
+  opacity: 1;
+}
+
+.brand,
+.nav-btn,
+.nav-menu-btn {
+  color: var(--clr-nav, #fff);
+}
+
+.nav-ul a,
+.nav-close-btn {
+  color: var(--clr-nav-mobile, #fff);
+}
+
+.homepage {
+  background-color: hsla(0deg, 0%, 100%, 0);
+  transition: background-color 350ms ease-in-out;
+  --clr-nav: #fff;
+  --clr-nav-mobile: #fff;
+}
+.homepage:hover, .homepage.sticky {
+  background-color: #fff;
+  --clr-nav: #000;
+}
+@media (min-width: 35em) {
+  .homepage:hover, .homepage.sticky {
+    --clr-nav-mobile: #000;
+  }
+}
+
+.otherpage {
+  background-color: #fff;
+  --clr-nav: #000;
+  --clr-nav-mobile: #000;
+  position: -webkit-sticky;
+  position: sticky;
+}
+@media (max-width: 35em) {
+  .otherpage {
+    --clr-nav-mobile: #fff;
+  }
+}
+
+@media (min-width: 35em) {
+  .nav-ul li > a::before {
+    content: "";
+    display: block;
+    height: 5px;
+    background-color: black;
+    position: absolute;
+    bottom: -1.7rem;
+    left: -0.5rem;
+    right: -0.5rem;
+    transform: scale(0, 1);
+    transition: transform 250ms ease-in-out;
+  }
+  .nav-ul li > a:hover::before {
+    transform: scale(1, 1);
+  }
+}
+@media (max-width: 35em) {
+  .nav-menu-btn,
+.nav-close-btn {
+    display: block;
+  }
+  .nav-ul {
+    flex-direction: column;
+    position: fixed;
+    z-index: 101;
+    inset: 0 0 0 100%;
+    padding: min(30vh, 10rem) 5rem;
+    transition: inset 500ms ease-in-out;
+    background-color: hsl(0deg, 0%, 20%);
+  }
+  @supports ((-webkit-backdrop-filter: blur(0.5rem)) or (backdrop-filter: blur(0.5rem))) {
+    .nav-ul {
+      background-color: hsla(0deg, 0%, 30%, 0.9);
+      -webkit-backdrop-filter: blur(0.5rem);
+              backdrop-filter: blur(0.5rem);
+    }
+  }
+  .nav-ul.active {
+    inset: 0 0 0 0;
+  }
+  .nav-ul a:hover {
+    font-weight: 700;
+  }
+  .nav-ul .close-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 2rem 2.5rem;
+  }
+}/*# sourceMappingURL=navbar.css.map */
