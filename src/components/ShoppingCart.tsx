@@ -11,6 +11,8 @@ import {
   Text,
   Tag,
   Spacer,
+  VStack,
+  StackDivider,
 } from "@chakra-ui/react";
 import CartItem from "./CartItem";
 import { useAppSelector } from "../redux/reduxTypedHooks";
@@ -31,9 +33,14 @@ export default function ShoppingCart() {
 
         <DrawerBody>
           {cartItems.length > 0 ? (
-            cartItems.map((item) => (
-              <CartItem key={item.id + item.size} {...item} />
-            ))
+            <VStack
+              spacing={4}
+              divider={<StackDivider borderColor="gray.200" />}
+            >
+              {cartItems.map((item) => (
+                <CartItem key={item.id + item.size} {...item} />
+              ))}
+            </VStack>
           ) : (
             <Center my={12}>
               <Text fontSize="xl" fontWeight="bold">

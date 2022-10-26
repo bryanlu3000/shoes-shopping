@@ -1,5 +1,5 @@
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
-import { Center, Flex, Text } from "@chakra-ui/react";
+import { IconButton, Flex, Text } from "@chakra-ui/react";
 
 interface CounterProps {
   itemCount: number;
@@ -10,30 +10,35 @@ export default function Counter({ itemCount, setItemCount }: CounterProps) {
   return (
     <Flex
       borderWidth={1}
-      borderRadius="sm"
+      borderRadius="md"
       borderColor="gray.300"
-      w="6rem"
+      w="7rem"
       justify="space-around"
+      align="center"
     >
-      <Center>
-        <MinusIcon
-          color="gray.400"
-          fontSize="xs"
-          onClick={() => setItemCount((prev) => prev - 1)}
-        />
-      </Center>
+      <IconButton
+        icon={<MinusIcon />}
+        variant="link"
+        aria-label="Decrease count"
+        size="xs"
+        color="gray.400"
+        _hover={{ color: "gray.600" }}
+        onClick={() => setItemCount((prev) => prev - 1)}
+      />
 
       <Text fontSize="md" fontWeight="bold">
         {itemCount}
       </Text>
 
-      <Center>
-        <AddIcon
-          color="gray.400"
-          fontSize="xs"
-          onClick={() => setItemCount((prev) => prev + 1)}
-        />
-      </Center>
+      <IconButton
+        icon={<AddIcon />}
+        variant="link"
+        aria-label="Increase count"
+        size="xs"
+        color="gray.400"
+        _hover={{ color: "gray.600" }}
+        onClick={() => setItemCount((prev) => prev + 1)}
+      />
     </Flex>
   );
 }
