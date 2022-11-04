@@ -4,8 +4,8 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { useAuthContext } from "../context/AuthContext";
 
-const BASE_URL = "http://localhost:8000";
-// const BASE_URL = ''; // For Heroku deployment
+// const BASE_URL = "http://localhost:8000";
+const BASE_URL = ""; // For Heroku deployment
 
 export const axiosInstance = axios.create({
   baseURL: BASE_URL,
