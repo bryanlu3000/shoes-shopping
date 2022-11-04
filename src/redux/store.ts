@@ -10,13 +10,14 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
+// import storage from "redux-persist/lib/storage"; // Save to localStorage
+import storageSession from "redux-persist/lib/storage/session"; // Save to sessionStorage
 
-// Save the redux store states to localstorage
 const persistConfig = {
   key: "shopping",
-  storage,
-  whitelist: ["cartItems"], // Only save cartItems state to localstorage
+  // storage, // Save to localStorage
+  storage: storageSession, // Save to sessionStorage
+  whitelist: ["cartItems"], // Save cartItems state
 };
 
 const persistedReducer = persistReducer(persistConfig, shopReducer);

@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { useAppDispatch } from "../redux/reduxTypedHooks";
 import { addCartItem } from "../redux/ShopSlice";
 import { useShopping } from "../context/ShoppingContext";
+import { useAuthContext } from "../context/AuthContext";
 
 interface StoreItemProps {
   id: string;
@@ -19,6 +20,8 @@ interface StoreItemProps {
   name: string;
   price: number;
   description: string;
+  totalRating: number;
+  reviewCount: number;
 }
 
 export default function StoreItem({
@@ -27,16 +30,19 @@ export default function StoreItem({
   name,
   price,
   description,
+  totalRating,
+  reviewCount,
 }: StoreItemProps) {
   const [size, setSize] = useState<string>("");
   const [isSizeSelected, setIsSizeSelected] = useState(true);
-  const { onOpen } = useShopping();
+  const { openShoppingCart } = useShopping();
+  const { isLogin, openSigninModal } = useAuthContext();
   const dispatch = useAppDispatch();
 
   const handleAdd = () => {
     if (size === "") {
       setIsSizeSelected(false);
-    } else {
+    } else if (isLogin) {
       dispatch(
         addCartItem({
           id,
@@ -46,7 +52,9 @@ export default function StoreItem({
           price,
         })
       );
-      onOpen();
+      openShoppingCart(); // Open shoppingCart
+    } else {
+      openSigninModal(); // Open SigninModal
     }
   };
 
@@ -59,7 +67,15 @@ export default function StoreItem({
       <Box borderWidth={1} borderRadius="md" shadow="md" minW="17rem">
         <Link
           to={`/itemdetail/${id}`}
-          state={{ name, imgUrl, price, description, shoesize: size }}
+          state={{
+            name,
+            imgUrl,
+            price,
+            description,
+            shoesize: size,
+            totalRating,
+            reviewCount,
+          }}
         >
           <Image
             src={imgUrl}

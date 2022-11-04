@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { axiosInstance } from "../api/axios";
+import { axiosInstance } from "../hooks/useAxios";
 import { RootState } from "./store";
 
 interface Item {
@@ -9,6 +9,8 @@ interface Item {
   price: number;
   featured: boolean;
   description: string;
+  totalRating: number;
+  reviewCount: number;
 }
 
 interface MongoDBItem extends Item {
@@ -147,6 +149,10 @@ const ShopSlice = createSlice({
         (item) => item.id !== id || item.size !== size
       );
     },
+
+    clearCartItems(state) {
+      state.cartItems = [];
+    },
   },
 
   extraReducers(builder) {
@@ -172,8 +178,12 @@ const ShopSlice = createSlice({
   },
 });
 
-export const { addCartItem, updateCartItemCount, removeCartItem } =
-  ShopSlice.actions;
+export const {
+  addCartItem,
+  updateCartItemCount,
+  removeCartItem,
+  clearCartItems,
+} = ShopSlice.actions;
 
 export const getItems = (state: RootState) => state.shop.items;
 export const getItemsCount = (state: RootState) => state.shop.itemsCount;
@@ -186,7 +196,7 @@ export const getCartItemsAmount = (state: RootState) =>
     0
   );
 export const getCategories = (state: RootState) => state.shop.categories;
-export const getItemDetail = (state: RootState, id: string) =>
-  state.shop.items.find((item) => item.id === id);
+// export const getItemDetail = (state: RootState, id: string) =>
+//   state.shop.items.find((item) => item.id === id);
 
 export default ShopSlice.reducer;

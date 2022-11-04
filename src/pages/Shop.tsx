@@ -20,7 +20,6 @@ import {
   useLocation,
 } from "react-router-dom";
 import StoreItem from "../components/StoreItem";
-import { useShopping } from "../context/ShoppingContext";
 import { useAppDispatch, useAppSelector } from "../redux/reduxTypedHooks";
 import {
   fetchItems,
@@ -30,6 +29,7 @@ import {
 } from "../redux/ShopSlice";
 import Paginator from "../components/Paginator";
 import { FetchItemsThunkProps } from "../redux/ShopSlice";
+import SigninModal from "../components/SigninModal";
 
 export default function Shop() {
   const { productCategory } = useParams();
@@ -47,7 +47,6 @@ export default function Shop() {
   const [isUrlPageChange, setIsUrlPageChange] = useState(true);
 
   const dispatch = useAppDispatch();
-  const { setIsHomepage } = useShopping();
 
   const ITEMS_PER_PAGE = 6;
   const limit = ITEMS_PER_PAGE;
@@ -72,7 +71,6 @@ export default function Shop() {
 
   useEffect(() => {
     dispatch(fetchItems(fetchItemsArgs));
-    setIsHomepage(false);
   }, []);
 
   // navigate to the same page will not trigger initial useEffect.
@@ -185,6 +183,8 @@ export default function Shop() {
               setIsUrlPageChange={setIsUrlPageChange}
             />
           </Center>
+
+          <SigninModal />
         </Container>
       </main>
     </>

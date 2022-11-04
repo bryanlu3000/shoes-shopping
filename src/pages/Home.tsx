@@ -22,6 +22,10 @@ export default function Home() {
     setIsHomepage(true);
     dispatch(fetchFeaturedItems());
     dispatch(fetchCategories());
+
+    return () => {
+      setIsHomepage(false);
+    };
   }, []);
 
   return (

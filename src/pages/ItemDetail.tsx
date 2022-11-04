@@ -7,33 +7,48 @@ import {
   Select,
   Button,
   Container,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { useAppDispatch } from "../redux/reduxTypedHooks";
 import { addCartItem } from "../redux/ShopSlice";
 import { useShopping } from "../context/ShoppingContext";
+import { useAuthContext } from "../context/AuthContext";
+import SigninModal from "../components/SigninModal";
+import ReviewRating from "../components/ReviewRating";
+import ReviewRatingModal from "../components/ReviewRatingModal";
 
 export default function ItemDetail() {
   const { id } = useParams();
 
+  // When openning this new page, redux state will be lost. If you do not want to refetch data from backend, you can use useLocation to transfer data via url.
   // Receive the item details from react-router-dom Link state via useLocation()
   const location = useLocation();
-  const { name, imgUrl, price, description, shoesize } = location.state;
+  const {
+    name,
+    imgUrl,
+    price,
+    description,
+    totalRating,
+    reviewCount,
+    shoesize,
+  } = location.state;
+
+  const [localTotalRating, setLocalTotalRating] = useState<number>(totalRating);
+  const [localReviewCount, setLocalReviewCount] = useState<number>(reviewCount);
 
   const [size, setSize] = useState<string>(shoesize || "");
   const [isSizeSelected, setIsSizeSelected] = useState(true);
-  const { setIsHomepage, onOpen } = useShopping();
+  const { openShoppingCart, addItemRating } = useShopping();
+  const { isLogin, openSigninModal } = useAuthContext();
+  const { isOpen, onOpen, onClose } = useDisclosure(); // Control open/close ReviewRatingModal
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    setIsHomepage(false);
-  }, []);
 
   const handleAdd = () => {
     if (size === "") {
       setIsSizeSelected(false);
-    } else {
+    } else if (isLogin) {
       dispatch(
         addCartItem({
           id,
@@ -43,8 +58,28 @@ export default function ItemDetail() {
           price,
         })
       );
-      onOpen();
+      openShoppingCart();
+    } else {
+      openSigninModal();
     }
+  };
+
+  const onClickReviewRating = () => {
+    if (isLogin) {
+      onOpen();
+    } else {
+      openSigninModal();
+    }
+  };
+
+  const callbackReviewRatingModal = (rating: number) => {
+    const callbackAddItemRating = () => {
+      // After updating the rating to the backend, then update the local state accordingly for a quick display. Next time when reloading this page, the rating value will be received from the backend.
+      setLocalTotalRating((prev) => prev + rating);
+      setLocalReviewCount((prev) => prev + 1);
+    };
+
+    addItemRating({ id: id!, rating, callback: callbackAddItemRating });
   };
 
   return (
@@ -76,6 +111,13 @@ export default function ItemDetail() {
               >
                 {name}
               </Text>
+
+              <ReviewRating
+                rating={Math.round(localTotalRating / localReviewCount)}
+                reviewCount={localReviewCount}
+                onClick={onClickReviewRating}
+              />
+
               <Text fontSize="xl" fontWeight="600" color="gray.600">
                 {`$${price}`}
               </Text>
@@ -131,6 +173,13 @@ export default function ItemDetail() {
             </Button>
           </GridItem>
         </Grid>
+
+        <SigninModal />
+        <ReviewRatingModal
+          isOpen={isOpen}
+          onClose={onClose}
+          callback={callbackReviewRatingModal}
+        />
       </Container>
     </main>
   );
