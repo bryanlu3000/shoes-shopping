@@ -1,1 +1,1 @@
-web: node db.ts
+web: node ./src/server/db.ts
