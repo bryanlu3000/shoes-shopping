@@ -1,4 +1,5 @@
 import { MongoClient, ObjectId } from "mongodb";
+// const { MongoClient, ObjectId } = require("mongodb");
 import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
