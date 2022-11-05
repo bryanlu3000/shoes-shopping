@@ -2,6 +2,7 @@
   "name": "shoes-shopping",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "all": "npm-run-all -p backend dev",
     "backend": "nodemon ./src/server/db.ts",
