@@ -35,11 +35,7 @@ app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 
 //////////////////////////////////////////////////////////////////////////////
 // CORS setting
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://127.0.0.1:5173",
-  "https://shoes-shopping.herokuapp.com/",
-];
+const allowedOrigins = ["http://localhost:5173", "http://127.0.0.1:5173"];
 
 const corsOptions: cors.CorsOptions = {
   origin: (origin, callback) => {
