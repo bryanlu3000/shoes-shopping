@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Header() {
   return (
     <header className="hero">
@@ -9,9 +11,9 @@ export default function Header() {
           itaque, inventore voluptatum. Beatae error illo totam! Expedita
           repellendus neque ut!
         </p>
-        <a href="/shop/all" className="btn">
+        <Link to="/shop/all" className="btn">
           Shop Now
-        </a>
+        </Link>
       </div>
     </header>
   );
