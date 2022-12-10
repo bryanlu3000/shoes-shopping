@@ -10,10 +10,10 @@ import {
   Input,
   InputRightElement,
   Button,
-  Link,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import validateInput from "../utilities/validateInput";
 import { useAuthContext } from "../context/AuthContext";
 import SignupSuccessModal from "../components/SignupSuccessModal";
@@ -149,7 +149,7 @@ export default function Signup() {
 
         <Text textAlign="center" fontSize="sm" fontWeight="400" mt={10}>
           Already registered?{" "}
-          <Link href="/signin" color="red.500" fontWeight="500">
+          <Link to="/signin" style={{ color: "red", fontWeight: "500" }}>
             Sign in
           </Link>
         </Text>

@@ -35,11 +35,15 @@ app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 
 //////////////////////////////////////////////////////////////////////////////
 // CORS setting
+<<<<<<< HEAD
 const allowedOrigins = [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
   "http://127.0.0.1:4173",
 ];
+=======
+const allowedOrigins = ["http://localhost:5173", "http://127.0.0.1:5173"];
+>>>>>>> c250937df335d9372c9a7806043de45f6cf80747
 
 const corsOptions: cors.CorsOptions = {
   origin: (origin, callback) => {

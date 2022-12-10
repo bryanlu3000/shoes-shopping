@@ -11,10 +11,9 @@ import {
   InputRightElement,
   Button,
   Checkbox,
-  Link,
 } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import validateInput from "../utilities/validateInput";
 import { useAuthContext } from "../context/AuthContext";
 
@@ -125,7 +124,7 @@ export default function Signin() {
 
         <Text textAlign="center" fontSize="sm" fontWeight="400" my={10}>
           Don't have an account?{" "}
-          <Link href="/signup" color="red.500" fontWeight="500">
+          <Link to="/signup" style={{ color: "red", fontWeight: "500" }}>
             Sign up
           </Link>
         </Text>
