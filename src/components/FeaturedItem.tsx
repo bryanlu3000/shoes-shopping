@@ -8,6 +8,7 @@ interface FeaturedItemProps {
   itemUrl: string;
   totalRating?: number;
   reviewCount?: number;
+  category: string;
 }
 
 export default function FeaturedItem({
@@ -18,11 +19,20 @@ export default function FeaturedItem({
   itemUrl,
   totalRating,
   reviewCount,
+  category,
 }: FeaturedItemProps) {
   return (
     <Link
       to={itemUrl}
-      state={{ name, imgUrl, price, description, totalRating, reviewCount }}
+      state={{
+        name,
+        imgUrl,
+        price,
+        description,
+        totalRating,
+        reviewCount,
+        category,
+      }}
       className="featured__item"
     >
       <img src={imgUrl} alt="featured product" className="featured__img" />

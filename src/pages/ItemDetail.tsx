@@ -8,9 +8,12 @@ import {
   Button,
   Container,
   useDisclosure,
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, Link } from "react-router-dom";
 import { useAppDispatch } from "../redux/reduxTypedHooks";
 import { addCartItem } from "../redux/ShopSlice";
 import { useShopping } from "../context/ShoppingContext";
@@ -33,6 +36,7 @@ export default function ItemDetail() {
     totalRating,
     reviewCount,
     shoesize,
+    category,
   } = location.state;
 
   const [localTotalRating, setLocalTotalRating] = useState<number>(totalRating);
@@ -84,6 +88,29 @@ export default function ItemDetail() {
 
   return (
     <main>
+      <Container
+        width="85%"
+        minW="16rem"
+        maxW="75rem"
+        mt={4}
+        fontSize="1.1rem"
+        fontWeight="500"
+        color="blue.400"
+      >
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <BreadcrumbLink as={Link} to="/">
+              Home
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <BreadcrumbLink as={Link} to={`/shop/${category}`}>
+              {category}
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
+      </Container>
+
       <Container width="85%" minW="16rem" maxW="75rem" mt={[8, 16, 32]}>
         <Grid
           templateColumns="repeat(5, 1fr)"

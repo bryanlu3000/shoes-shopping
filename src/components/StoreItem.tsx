@@ -22,6 +22,7 @@ interface StoreItemProps {
   description: string;
   totalRating: number;
   reviewCount: number;
+  category: string;
 }
 
 export default function StoreItem({
@@ -32,6 +33,7 @@ export default function StoreItem({
   description,
   totalRating,
   reviewCount,
+  category,
 }: StoreItemProps) {
   const [size, setSize] = useState<string>("");
   const [isSizeSelected, setIsSizeSelected] = useState(true);
@@ -75,6 +77,7 @@ export default function StoreItem({
             shoesize: size,
             totalRating,
             reviewCount,
+            category,
           }}
         >
           <Image
